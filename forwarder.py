@@ -2,7 +2,6 @@
 
 import asyncio
 import logging
-import time
 
 from telethon.tl.patched import MessageService
 from telethon.errors.rpcerrorlist import FloodWaitError
@@ -57,15 +56,12 @@ async def forward_job():
             logging.info('Completed working with %s', forward)
 
 
+async def main():
+    while True:
+        await forward_job()
+        await asyncio.sleep(60)
+
+
 if __name__ == "__main__":
     assert forwards
-
-    loop = asyncio.get_event_loop()
-    while True:    
-        try:
-            loop.run_until_complete(forward_job())
-        finally:
-            logging.info('Task completed')
-            # loop.close()
-
-        time.sleep(60)
+    asyncio.run(main())
