@@ -39,9 +39,6 @@ async def forward_job():
         for forward in forwards:
             from_chat, to_chat, offset = get_forward(forward)
 
-            if not offset:
-                offset = 0
-
             async for message in client.iter_messages(intify(from_chat), reverse=True, offset_id=offset):
                 if isinstance(message, MessageService):
                     continue

@@ -21,7 +21,7 @@ def get_forward(forward: str) -> tuple:
     try:
         from_chat = configur.get(forward, 'from')
         to_chat = configur.get(forward, 'to')
-        offset = configur.getint(forward, 'offset')
+        offset = configur.getint(forward, 'offset', fallback=0)
         return from_chat, to_chat, offset
     except Exception as err:
         logging.exception(
