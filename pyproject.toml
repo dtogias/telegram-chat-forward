@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "tgcf"
+version = "0.1.0"
+description = "A simple script to forward all the messages of one chat (private/group/channel) to another. Made using Telethon. Can be used to back up the contents of a chat to another place.You can also start a live sync to forward all upcoming messages"
+authors = ["aahnik <daw@aahnik.dev>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
