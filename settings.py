@@ -7,6 +7,9 @@ load_dotenv()
 
 API_ID = os.getenv('api_id')
 API_HASH = os.getenv('api_hash')
+
+BINANCE_API_KEY = os.getenv('binance_api_key')
+BINANCE_API_SECRET = os.getenv('binance_api_secret')
 STRING_SESSION = os.getenv('STRING_SESSION')
 
 assert API_ID and API_HASH

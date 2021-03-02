@@ -3,10 +3,12 @@
 import asyncio
 import logging
 
-from telethon.tl.patched import MessageService
-from telethon.errors.rpcerrorlist import FloodWaitError
 from telethon import TelegramClient
+from telethon.errors.rpcerrorlist import FloodWaitError
 from telethon.sessions import StringSession
+from telethon.tl.patched import MessageService
+
+from binance import binance_job
 from settings import API_ID, API_HASH, REPLACEMENTS, forwards, get_forward, update_offset, STRING_SESSION
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -59,6 +61,7 @@ async def forward_job():
 async def main():
     while True:
         await forward_job()
+        await binance_job()
         await asyncio.sleep(60)
 
 

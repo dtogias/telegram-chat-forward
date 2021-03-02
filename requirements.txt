@@ -8,3 +8,4 @@ python-dotenv==0.15.0
 rsa==4.6
 Telethon==1.19.5
 pyyaml
+cctx
