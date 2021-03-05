@@ -18,6 +18,7 @@ configur = ConfigParser()
 configur.read('config.ini')
 
 forwards = configur.sections()
+defaults = configur.defaults()
 
 
 def get_forward(forward: str) -> tuple:
@@ -40,6 +41,7 @@ def update_offset(forward: str, new_offset: str) -> None:
     except Exception as err:
         logging.exception(
             'Problem occured while updating offset of %s \n\n %s', forward, str(err))
+
 
 if os.path.isfile('replace.yml'):
     with open ('replace.yml') as file:

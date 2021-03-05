@@ -9,31 +9,14 @@ from telethon.sessions import StringSession
 from telethon.tl.patched import MessageService
 
 from binance import binance_job
-from settings import API_ID, API_HASH, REPLACEMENTS, forwards, get_forward, update_offset, STRING_SESSION
+from common import intify, replace
+from settings import API_ID, API_HASH, forwards, get_forward, update_offset, STRING_SESSION
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
 
 
-def intify(string):
-    try:
-        return int(string)
-    except:
-        return string
-
-
-def replace(message):
-    for old,new in REPLACEMENTS.items():
-        message.text = str(message.text).replace(old,new)
-    return message
-
-
-async def forward_job():
-    ''' the function that does the job 😂 '''
-    if STRING_SESSION:
-        session = StringSession(STRING_SESSION)
-    else:
-        session = 'forwarder'
+async def forward_job(session):
 
     async with TelegramClient(session, API_ID, API_HASH) as client:
 
@@ -44,7 +27,7 @@ async def forward_job():
                 if isinstance(message, MessageService):
                     continue
                 try:
-                    await client.send_message(intify(to_chat), replace(message))
+                    # await client.send_message(intify(to_chat), replace(message))
                     last_id = str(message.id)
                     logging.info('forwarding message with id = %s', last_id)
                     update_offset(forward, last_id)
@@ -59,9 +42,17 @@ async def forward_job():
 
 
 async def main():
+    if STRING_SESSION:
+        session = StringSession(STRING_SESSION)
+    else:
+        session = 'forwarder'
+
+    client = TelegramClient(session, API_ID, API_HASH)
+    await client.connect()
+
     while True:
-        await forward_job()
-        await binance_job()
+        await forward_job(session)
+        await binance_job(client)
         await asyncio.sleep(60)
 
 

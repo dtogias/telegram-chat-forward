@@ -5,4 +5,5 @@ venv
 forwarder.session
 config.ini
 replace.yml
+binance.yaml
 .idea/**
